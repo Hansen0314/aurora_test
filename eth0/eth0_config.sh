@@ -1,5 +1,5 @@
 #!/bin/bash
-TEST_URL=192.168.4.2
+TEST_IP=192.168.4.2
 if [[ $EUID -ne 0 ]]; then
 	echo "This script must be run as root (use sudo)" 1>&2
 	exit 1
@@ -8,7 +8,7 @@ LINK_STATUS=`dmesg | grep eth0 | tail -n 1 | awk '{print $8}'`
 echo $LINK_STATUS
 if [ $LINK_STATUS = "ready" ]
 then
-	ping $TEST_URL
+	ping $TEST_IP
 	exit 1
 fi
 #LAN8710A disable Auto-Negotiation
@@ -20,4 +20,4 @@ phytool read eth0/0/0x1b
 
 sleep 10
 
-ping $TEST_URL
+ping $TEST_IP
