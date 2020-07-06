@@ -1,11 +1,9 @@
 #!/bin/bash
-# if [ -n $1 ]
-# then
-    # echo "Usage:"
-    # echo "bash power_on_voice.sh 1"
-    # echo "bash power_on_voice.sh 2"
-    # exit 1
-# fi
+if [ "$#" -lt "1" ]; then
+   echo "usage: bash $0 1"
+   echo "usage: bash $0 2"
+   exit
+fi
 /bin/bash open_Opamper.sh $1
 while true
 do
@@ -16,8 +14,9 @@ do
     fi
     sleep 1
 done
+sleep 2
 arecord|aplay
-if false; then
+if false; then 
 if [ $1 = 1 ]
 then
     PIN_OUT=`gpio input 79`

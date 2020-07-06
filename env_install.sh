@@ -6,27 +6,24 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 # install gpio
-
-cd /bin/
-wget https://raw.githubusercontent.com/turmary/EMSTS/master/scripts/bbb/gpio
-chmod 775 /bin/gpio
 GPIO_CHECK=`gpio`
 if [ $GPIO_CHECK ]
 then
-    echo "cannot find gpio please check whether installed gpio successfully"
-    exit 1
+    cd /bin/
+    wget https://raw.githubusercontent.com/turmary/EMSTS/master/scripts/bbb/gpio
+    chmod 775 /bin/gpio
+    GPIO_CHECK=`gpio`
 fi
 
 # install phytool
-cd /home/debian;git clone https://github.com/wkz/phytool
-cd /home/debian/phytool
-make
-make install
 PHYTOOL_CHECK=`phytool | tail -n 1`
 if [ $PHYTOOL_CHECK ]
 then
-    echo "cannot find phytool please check whether installed phytool successfully"
-    exit 1
+    cd /home/debian;git clone https://github.com/wkz/phytool
+    cd /home/debian/phytool
+    make
+    make install
+    cp /usr/local/bin/phytool /home/debian/aurora_test/eth0/
 fi
 
 # install power-service

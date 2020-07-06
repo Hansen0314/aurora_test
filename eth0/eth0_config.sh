@@ -12,12 +12,14 @@ then
 	exit 1
 fi
 #LAN8710A disable Auto-Negotiation
-phytool write eth0/0/0x0 0x000 
-phytool read eth0/0/0x0      
+./phytool write eth0/0/0x0 0x000 
+./phytool read eth0/0/0x0      
 # LAN8710A disable AUTO-MDIX
-phytool write eth0/0/0x1b 0xa00b 
-phytool read eth0/0/0x1b      
+./phytool write eth0/0/0x1b 0xa00b 
+./phytool read eth0/0/0x1b      
 
 sleep 10
-
+#LAN8710A enable 100M
+./phytool write eth0/0/0x0 0x2100
+./phytool read eth0/0/0x0
 ping $TEST_IP
