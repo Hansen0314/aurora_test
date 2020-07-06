@@ -1,0 +1,11 @@
+[Unit]
+Description=Power Monitor Daemon
+After=local-fs.target
+
+[Service]
+User=root
+Type=exec
+ExecStart=/bin/bash /usr/local/bin/power_maneger.sh
+
+[Install]
+WantedBy=multi-user.target
