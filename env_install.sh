@@ -7,7 +7,7 @@ fi
 
 # install gpio
 cd /bin/
-wget https://raw.githubusercontent.com/turmary/EMSTS/master/scripts/bbb/gpio
+#wget https://raw.githubusercontent.com/turmary/EMSTS/master/scripts/bbb/gpio
 chmod 775 /bin/gpio
 
 # install phytool
