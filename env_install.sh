@@ -6,15 +6,8 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 # install gpio
-<<<<<<< HEAD
-cd /home/debian;git clone https://github.com/turmary/EMSTS.git
-cp /home/debian/EMSTS/scripts/bbb/gpio /bin/
+cp /home/debian/aurora_test/gpio /bin/
 chmod +x /bin/gpio
-=======
-cd /bin/
-#wget https://raw.githubusercontent.com/turmary/EMSTS/master/scripts/bbb/gpio
-chmod 775 /bin/gpio
->>>>>>> 85349c7732b7f947a60bf50bc3e80343eb74b20a
 
 # install phytool
 cd /home/debian;git clone https://github.com/wkz/phytool
