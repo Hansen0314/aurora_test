@@ -8,18 +8,18 @@ LINK_STATUS=`dmesg | grep eth0 | tail -n 1 | awk '{print $8}'`
 echo $LINK_STATUS
 if [ $LINK_STATUS = "ready" ]
 then
-	ping $TEST_IP
+	ping -c 5 $TEST_IP
 	exit 1
 fi
 #LAN8710A disable Auto-Negotiation
-./phytool write eth0/0/0x0 0x000 
-./phytool read eth0/0/0x0      
+/debian/home/aurora_test/eth0/phytool write eth0/0/0x0 0x000 
+/debian/home/aurora_test/eth0/phytool read eth0/0/0x0      
 # LAN8710A disable AUTO-MDIX
-./phytool write eth0/0/0x1b 0xa00b 
-./phytool read eth0/0/0x1b      
+/debian/home/aurora_test/eth0/phytool write eth0/0/0x1b 0xa00b 
+/debian/home/aurora_test/eth0/phytool read eth0/0/0x1b      
 
 sleep 10
 #LAN8710A enable 100M
-./phytool write eth0/0/0x0 0x2100
-./phytool read eth0/0/0x0
-ping $TEST_IP
+/debian/home/aurora_test/eth0/phytool write eth0/0/0x0 0x2100
+/debian/home/aurora_test/eth0/phytool read eth0/0/0x0
+ping -c 5 $TEST_IP
