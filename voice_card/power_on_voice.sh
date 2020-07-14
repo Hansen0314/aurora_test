@@ -8,7 +8,7 @@ fi
 while true
 do
     CARD_STARUS=`aplay -l | grep card | awk '{print $3}'`
-    if [ $CARD_STARUS = 'B' ]
+    if [ -n $CARD_STARUS ]
     then
         sleep 2
         break

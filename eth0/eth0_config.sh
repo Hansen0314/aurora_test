@@ -12,14 +12,14 @@ then
 	exit 1
 fi
 #LAN8710A disable Auto-Negotiation
-/debian/home/aurora_test/eth0/phytool write eth0/0/0x0 0x000 
-/debian/home/aurora_test/eth0/phytool read eth0/0/0x0      
+/home/debian/aurora_test/eth0/phytool write eth0/0/0x0 0x000 
+/home/debian/aurora_test/eth0/phytool read eth0/0/0x0      
 # LAN8710A disable AUTO-MDIX
-/debian/home/aurora_test/eth0/phytool write eth0/0/0x1b 0xa00b 
-/debian/home/aurora_test/eth0/phytool read eth0/0/0x1b      
+/home/debian/aurora_test/eth0/phytool write eth0/0/0x1b 0xa00b 
+/home/debian/aurora_test/eth0/phytool read eth0/0/0x1b      
 
 sleep 10
 #LAN8710A enable 100M
-/debian/home/aurora_test/eth0/phytool write eth0/0/0x0 0x2100
-/debian/home/aurora_test/eth0/phytool read eth0/0/0x0
+/home/debian/aurora_test/eth0/phytool write eth0/0/0x0 0x2100
+/home/debian/aurora_test/eth0/phytool read eth0/0/0x0
 ping -c 5 $TEST_IP
