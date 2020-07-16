@@ -35,7 +35,7 @@ It is convenient to use this hardware overview for finding the location of the h
 
 For Aurora 100
 
-![](img/aurora100.png)
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//aurora100.png)
 
 - **1. LED:** Include power LED and user-defined LED.
 
@@ -79,7 +79,7 @@ For Aurora 100
 
 - **21. MAX9814ETD:** Amplifier for Mic.
 
-![](img/aurora200.png)
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//aurora200.png)
 
 - **1. Knob:** Adjust the speaker volume.
 
@@ -131,11 +131,11 @@ It is very useful when we test there pin.
 
 For Aurora 100
 
-![](img/100_Extern_Interface_pinout.png)
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//100_Extern_Interface_pinout.png)
 
 For Aurora 200
 
-![](img/200_Extern_Interface_pinout.png)
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//200_Extern_Interface_pinout.png)
 
 ## Introduction To Software
 
@@ -155,29 +155,29 @@ For Aurora 200
 
 **Uptdate firmware**
 
-- **Step 1.** Select the [firmware](https://beagleboard.org/latest-image) to download:
+- **Step 1.** Select the [firmware](https://beagleboard.org/latest-images) to download:
 
-![](img/firmware_link.png)
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//firmware_link.png)
 
 - **Step 2.** Connect an SD card to a PC or MAC with an SD card reader, an SD card with more than 4G memory is required.
 
-- **Step 3.** Click here to download [Etcher](https://etcher.io/), then use the Etcher to write the  ```*.img.xz``` file directly to the SD card. Or extract the ```*.img.xz``` file into a ```*.img``` file, and then burn it to an SD card using another mirror write tool.
+- **Step 3.** Click here to download [Etcher](https://etcher.io/), then use the Etcher to write the  ```*.https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img/.xz``` file directly to the SD card. Or extract the ```*.https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img/.xz``` file into a ```*.https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img/``` file, and then burn it to an SD card using another mirror write tool.
 
-![](img/etcher_burn_firmware.png)
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//etcher_burn_firmware.png)
 
 we can get below the picture when the etcher burns successful.
 
-![](img/etcher_burn_firmware_complete.png)
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//etcher_burn_firmware_complete.png)
 
 - **Step 4.** After writing the image to the SD card, insert the SD card into Aurora.
 
 For Aurora 100
 
-![](img/insert_SD_card_for100.png)
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//insert_SD_card_for100.png)
 
 For Aurora 200
 
-![](img/insert_SD_card_for200.png)
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//insert_SD_card_for200.png)
 
 - **Step 5.** Connect Aurora to a computer by using USB To Uart Adapter.the hardware connection as below.
 
@@ -187,56 +187,55 @@ For Aurora 200
 |RX|TX|	
 |GND|GND|
 
-
 For Aurora 100
 
-![](img/UART_connection_100.png)
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//UART_connection_100.png)
 
 For Aurora 200
 
-![](img/UART_connection_200.png)
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//UART_connection_200.png)
 
 - **Step 6.** Connect RST to GND at stm8 to stop stm8 power-manager code.
 For Aurora 100
 
-![](img/GND_TO_RST100.png)
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//GND_TO_RST100.png)
 
 For Aurora 200
 
-![](img/GND_TO_RST200.png)
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//GND_TO_RST200.png)
 
-the system will reboot repeatedly if our firmware have not `power-manager.service`.and there does not exist `power-manager.service` at default firmware. So we have to connect RST to GND at stm8 to stop `power-manager.service   `. we will install the `power-manager.service` at subsequent steps.
+the system will reboot repeatedly if our firmware does not have `power-manager.service`.and there does not exist `power-manager.service` at default firmware. So we have to connect RST to GND at stm8 to stop `power-manager.service   `. we will install the `power-manager.service` at subsequent steps.
 
-- **Step 7.** Use a 24V Power adapter to power the Aurora board. and you can see the LED power on. Do not take out the SD card during writing.
+- **Step 7.** Use [PUTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html), select `Serial` protocol, fill in the correct COM port of Aurora, 115200 baud, 8Bits, Parity None, Stop Bits 1, Flow Control None.
 
-- **Step 8.** Use [PUTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html), select `Serial` protocol, fill in the correct COM port of Aurora, 115200 baud, 8Bits, Parity None, Stop Bits 1, Flow Control None.
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//COM_for_Aurora.png)
 
-![](img/COM_for_Aurora.png)
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//puttyh_login.png)
 
-![](img/puttyh_login.png)
+- **Step 8.** Use a 24V Power adapter to power the Aurora board. and you can see the LED power on. Do not take out the SD card during writing.
 
 - **Step 9.** The login user name is `debian`, and password is `temppwd`.
 
-![](img/login_In_system.png)
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//login_In_system.png)
 
-- **Step 10.** Edit `/boot/uEnv.txt` to start eMMC boot then reboot at Aurora.
+- **Step 10.** Edit `/boot/uEnv.txt` then reboot to start eMMC boot.
 
 ```bash
-sudo sh -c "echo cmdline=init=/opt/scripts/tools/eMMC/init-eMMC-flasher-v3.sh >> /boot/uEnv.txt"
+sudo sh -c "echo cmdline=init=/opt/scripts/tools/eMMC/init-eMMC-flasher-v3.sh >> \ /boot/uEnv.txt"
 sudo reboot
 ```
 
-`if the update firmware finish, the terminal will show power-off cmd.`
+it will take some time for updating firmware.please wait with patience.
+>You have to power off the board and unplug sd card when you terminal show this message.and the script will updating firmware repeatedly if we does not power off.
 
-![](img/emmc_flash_succ.png)
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//emmc_flash_succ.png)
 
-You have to power off the board and unplug sd card If you terminal show this message.
 
 - **Step 11.** Unplug `sd card` then power on.
 
 If you boot at emmc , the terminal will print `/dev/mmcblk1p1`.
 
-![](img/emmc_boot.png)
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//emmc_boot.png)
 
 - **Step 12.** Connect Internet cable to Ethernet interface if the Green LED to blink and the Yellow LED to light that indicates the network work well.we can get as below information about the eth0 at Aurora if we type `ifconfig` cmd.
 
@@ -244,7 +243,7 @@ If you boot at emmc , the terminal will print `/dev/mmcblk1p1`.
 ifconfig
 ```
 
-![](img/ifconfig.png)
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//ifconfig.png)
 
 the ip addr maybe different for this picture depending on your router.
 
@@ -254,7 +253,7 @@ the ip addr maybe different for this picture depending on your router.
 ping -c 5 www.china.com
 ```
 
-![](img/ping.png)
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//ping.png)
 
 if the terminal print like this indicates the network has been connecting to the Internet.if we can not get the Internet maybe need to check your network environment.
 
@@ -316,7 +315,7 @@ we can use this cmd to make 12v power on.
 gpio set 11
 ```
 
-You can get 12v at J54(aurora 100)-pin4 or J21(aurora 200)-pin1 by using a multimeter.and the pin's location you can view the [Extern-Interface-pinout](##Extern%20Interface%20pinout).
+You can get 12v at J54(aurora 100)-pin4 or J21(aurora 200)-pin1 by using a multimeter.and the pin's location you can view the [Extern-Interface-pinout](https://github.com/Hansen0314/aurora_test#extern-interface-pinout).
 
 we can use this cmd to make 12v power off.
 
@@ -341,17 +340,17 @@ cd  ~/aurora_test/input
 ```
 
 Connect input pin to GND that will print the name of the pin at the terminal.
-and the pin's location you can view the [Extern-Interface-pinout](##Extern%20Interface%20pinout).
+and the pin's location you can view the [Extern-Interface-pinout](https://github.com/Hansen0314/aurora_test#extern-interface-pinout).
 this is  Trigger sequence:
 `CALL_IN -> SEN1_IN -> EXT_SEN -> SEN2_IN(aurora 200)`
 
 the EXT_SEN's location for Aurora100
 
-![](img/ext_sen_for100.png)
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//ext_sen_for100.png)
 
 the EXT_SEN's location for Aurora200
 
-![](img/ext_sen_for200.png)
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//ext_sen_for200.png)
 
 **LED state**
 
@@ -384,24 +383,24 @@ gpio set 27 #make NO-C connect to GND
 gpio clear 27 #make NO-C disconnect to GND
 ```
 
-and the pin's location you can view [Extern-Interface-pinout](##Extern%20Interface%20pinout).
+and the pin's location you can view [Extern-Interface-pinout](https://github.com/Hansen0314/aurora_test#extern-interface-pinout).
 
 **Voice card**
 
 the voice card needs some time to setup after power on. So we need to check voice card setup successful before run `./power_on_voice.sh`.we can use aplay -l to check whether set up successful. we can get this message if set up successful.
 
-![](img/aplay-l.png)
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//aplay-l.png)
 
 
-It is very important to check the connection of the Speaker and the Mic.and the pin's location you can view [Extern-Interface-pinout](##Extern%20Interface%20pinout).
+It is very important to check the connection of the Speaker and the Mic.and the pin's location you can view [Extern-Interface-pinout](https://github.com/Hansen0314/aurora_test#extern-interface-pinout).
 
 For Aurora100
 
-![](img/Speaker-Mic_connectionfor100.png)
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//Speaker-Mic_connectionfor100.png)
 
 For Aurora200
 
-![](img/Speaker-Mic_connectionfor200.png)
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//Speaker-Mic_connectionfor200.png)
 
 if you use aurora 100 we can use this cmd to test it.
 
@@ -424,7 +423,7 @@ you can hear your speech form the Speaker if you speak to the mic.and you can ad
 sudo alsamixer
 ```
 
-![](img/PCM.png)
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//PCM.png)
 
 The asound.conf and asound.state that you can found by accessing [github](https://github.com/Hansen0314/aurora_test/tree/master/voice_card).
 
@@ -435,25 +434,25 @@ The asound.conf and asound.state that you can found by accessing [github](https:
 
 Click `Project -> New`
 
-![](img/stvp_New.png)
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//stvp_New.png)
 
 Select `ST-Link ->SWIM->STM8S00F3`
-![](img/stvp_select_stm8.png)
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//stvp_select_stm8.png)
 
 - **Step 3.** dowmload [firmware](https://github.com/Hansen0314/aurora_test/blob/master/power-service/STM8Firmware/power_manager.hex)
 
 
 - **Step 4.**  Connect STM8 to the computer by ST-link
 
-![](img/SWIM_CONNECTION.png)
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//SWIM_CONNECTION.png)
 
 - **Step 5.** Open the firmware then burn it to stm8
 
-![](img/stvp_Open.png)
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//stvp_Open.png)
 
 burn the firmware
 
-![](img/burn_firmware.png)
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//burn_firmware.png)
 
 成功的现象
 
