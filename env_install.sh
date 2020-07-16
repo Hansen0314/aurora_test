@@ -23,8 +23,8 @@ bash install.sh
 # install voice-card
 sh -c "echo uboot_overlay_addr0=/lib/firmware/BB-BONE-AUDI-02-00A0.dtbo >> /boot/uEnv.txt"
 cd /home/debian/aurora_test/voice_card
-alsactl restore 0 -f asound.state
-cp asound.conf  /etc/asound.conf
+cp asound.state /var/lib/alsa/
+cp asound.conf  /etc/
 echo "reboot to enable voice config"
 sleep 10
 reboot
