@@ -55,7 +55,7 @@ For Aurora 100
 
 - **9. TTL UART:** You also can connect the Aurora with your computer via this UART port.
 
-- **10. SWIM jack:** You can use this jack to update the mpu(stm8) firmware.
+- **10. SWIM interface:** You can use this jack to update the mpu(stm8) firmware.
 
 - **11. SD Card Slot:** To plug in micro-SD card to update the Aurora firmware.
 
@@ -101,7 +101,7 @@ For Aurora 100
 
 - **10. LED:** Include power LED and user-defined LED , network status LED.
 
-- **11. SWIM jack:** You can use this jack to update the mpu(stm8) firmware.
+- **11. SWIM interface:** You can use this jack to update the mpu(stm8) firmware.
 
 - **12. STM8:** Software power switch chip for Aurora.
 
@@ -271,23 +271,21 @@ cd ~
 git clone --depth 1 https://github.com/Hansen0314/aurora_test.git
 ```
 
+the aurora_test have below content.
+
+|aurora test code|test aim|
+|:----:|:------:|
+|gpio|+12VS<br>Input<br>Relay<br>LED state|
+|power-service|power manager|
+|voice_card|Voice card|
+
 - **Step 2.** Install the gpio to control the gpio of Aurora.
 
 ```bash
 sudo cp ~/aurora_test/gpio /bin/
 ```
 
-- **Step 3.** Install the phytool to config the LAN of Aurora.
-
-```bash
-git clone  https://github.com/wkz/phytool
-cd ~/phytool
-make
-sudo make install
-sudo cp /usr/local/bin/phytool /home/debian/aurora_test/eth0/
-```
-
-- **Step 4.** Install the power-service that communicate 
+- **Step 3.** Install the power-service that communicate 
 with stm8 to enable `power-manager.service`.
 
 ```bash
@@ -297,7 +295,7 @@ sudo ./install.sh
 
 you can disconnect GND to RST at stm8 for now.
 
-- **Step 5.** Install voice card to enable speaker and mic then reboot.
+- **Step 4.** Install voice card to enable speaker and mic then reboot.
 
 ```bash
 sudo sh -c "echo uboot_overlay_addr0=/lib/firmware/BB-BONE-AUDI-02-00A0.dtbo >> \ /boot/uEnv.txt"
@@ -344,7 +342,7 @@ If you want to test input of aurora 200.
 ```bash
 gpio input 44 #if GND connect to CALL we will get 0
 gpio input 46 #if GND connect to SENSOR#1 we will get 0
-gpio input 75 #if GND connect to Small_hole we will get 1
+gpio input 75 #if GND connect to Small_hole we will get 0
 gpio input 65 #if GND connect to SENSOR#2 we will get 0
 ```
 
@@ -500,15 +498,15 @@ we can get this message
 
 ### Power manager
 
-Power manager have two-part on the one hard is stm8 and on the other hand, is am3358(main controller).we have to use this cmd to enable stm8's power manager after power on Aurora.
+Power manager have two-part on the one hand is stm8 and on the other hand, is Aurora.we have to use this cmd to enable stm8's power manager at Aurora after power on the Aurora.
 
 ```bash
 gpio set 45
 ```
 
->If the power manager power on at stm8, at the same time the am3358's power manager has to enable. how to enable it we can view [Env install](https://github.com/Hansen0314/aurora_test#devices-usage)'s step4.
+>If the power manager power on at stm8, at the same time the Aurora's power manager has to enable. how to enable it we can view [Env install](https://github.com/Hansen0314/aurora_test#devices-usage)'s step4.
 
-We need to generate the falling edge level if you want to power off the stm8's power manager.
+We need to generate the falling edge level at Aurora if you want to power off the stm8's power manager.
 
 ```bash
 gpio set 45
@@ -531,17 +529,23 @@ Select `ST-Link ->SWIM->STM8S00F3`
 
 - **Step 4.** dowmload [firmware](https://raw.githubusercontent.com/Hansen0314/aurora_test/master/power-service/STM8Firmware/power_manager.hex) to desktop and rename to `power_manager.hex`.
 
-- **Step 5.**  Connect STM8 to the computer by ST-link
+- **Step 5.**  Power off the aurora by using power switch.
+
+- **Step 6.**  Connect STM8's SWIM interface to the computer by using ST-link.
 
 ![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//SWIM_CONNECTION.png)
 
-- **Step 6.** Open the firmware then burn it to stm8
+the `SWIM interface`'s location you can view [hardware-overview](https://github.com/Hansen0314/aurora_test#hardware-overview).
+
+- **Step 7.** Open the firmware then burn it to stm8
 
 ![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//stvp_Open.png)
 
 burn the firmware
 
 ![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//burn_firmware.png)
+
+>if get some error when burning you can replug the st-link to the computer.
 
 if we burn successful we can get below picture.
 
