@@ -147,15 +147,16 @@ For Aurora 200
 - Internet network
 - Internet cable
 - 4GB (or more memory) SD card and SD card reader
-- PC or Mac
+- PC (Windows10)
 - [USB To Uart Adapter](https://www.seeedstudio.com/USB-To-Uart-5V%26amp%3B3V3-p-1832.html) (optional)
 - 24V/2A DC interface adapter
+- Multimeter
 - Especial Speaker x 1  (Aurora100) or Especial Speaker x 2  (Aurora200)
 - Especial Mic
 
 **Uptdate firmware**
 
-- **Step 1.** Select the [firmware](https://beagleboard.org/latest-images) to download:
+- **Step 1.** Select the [firmware](https://beagleboard.org/latest-images) to download and this firmware both Aurora 100 and Aurora 200 all be used:
 
 ![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//firmware_link.png)
 
@@ -221,7 +222,7 @@ the system will reboot repeatedly if our firmware does not have `power-manager.s
 - **Step 10.** Edit `/boot/uEnv.txt` then reboot to start eMMC boot.
 
 ```bash
-sudo sh -c "echo cmdline=init=/opt/scripts/tools/eMMC/init-eMMC-flasher-v3.sh \ >> /boot/uEnv.txt"
+sudo sh -c "echo cmdline=init=/opt/scripts/tools/eMMC/init-eMMC-flasher-v3.sh >> \ /boot/uEnv.txt"
 sudo reboot
 ```
 
@@ -331,6 +332,10 @@ gpio input 46 #if GND connect to SENSOR#1 we will get 1
 gpio input 75 #if GND connect to Small_hole we will get 1
 ```
 
+if everything going well we will get this result.
+
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img/aurora100_input.png)
+
 If you want to test input of aurora 200.
 
 ```bash
@@ -339,6 +344,10 @@ gpio input 46 #if GND connect to SENSOR#1 we will get 0
 gpio input 75 #if GND connect to Small_hole we will get 1
 gpio input 65 #if GND connect to SENSOR#2 we will get 0
 ```
+
+if everything going well we will get this result.
+
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img/aurora200_input.png)
 
 and the pin's location you can view the [Extern-Interface-pinout](https://github.com/Hansen0314/aurora_test#extern-interface-pinout).
 
