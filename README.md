@@ -7,8 +7,8 @@ This software provide some shell commands to demo how to drive devices on the Au
 For Aurora 100
 |Item|Values|
 |----|------|
-|Memory|512MB DDR3 RAM(测速)|
-|Storage| 4GB 8-bit eMMC on-board flash(测速)<br>SD slot|	
+|Memory|512MB DDR3 RAM|
+|Storage| 4GB 8-bit eMMC on-board flash<br>SD slot|	
 |Peripheral Interface| 1 x USB Host<br>1 x 100M Ethernet interface<br>1 x Record interface<br>1 x Play interface<br>2 x Relay output interface(MAX 30V/2A))<br>2 x GPIO input interface<br>1 x Extern 12V interface(MAX 2A)<br>1 x USB OTG<br>1 x SD card interface <br>1 x TTL UART|
 |On-board LED|1 x Power LED<br>1 x user-defined LED|
 |Power|1 x DC interface (24V/2.5A)|
@@ -20,8 +20,8 @@ For Aurora 200
 
 |Item|Values|
 |----|------|
-|Memory|512MB DDR3 RAM(测速)|
-|Storage| 4GB 8-bit eMMC on-board flash(测速)<br>SD slot|	
+|Memory|512MB DDR3 RAM|
+|Storage| 4GB 8-bit eMMC on-board flashsud<br>SD slot|	
 |Peripheral Interface| 1 x USB Host<br>4 x 100M Ethernet interface<br>1 x Record interface<br>2 x Play interface<br>3 x Relay output interface(MAX 30V/2A)<br>3 x GPIO input interface<br>1 x Extern 12V interface(MAX 2A)<br>1 x USB OTG<br>1 x SD card interface <br>1 x TTL UART|
 |On-board LED|1 x Power LED<br>1 x User-defined LED<br>1 x Network status LED|
 |Power|1 x DC interface(24V/2.5A)|
@@ -161,7 +161,7 @@ For Aurora 200
 
 - **Step 2.** Connect an SD card to a PC or MAC with an SD card reader, an SD card with more than 4G memory is required.
 
-- **Step 3.** Click here to download [Etcher](https://etcher.io/), then use the Etcher to write the  ```*.https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img/.xz``` file directly to the SD card. Or extract the ```*.https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img/.xz``` file into a ```*.https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img/``` file, and then burn it to an SD card using another mirror write tool.
+- **Step 3.** Click here to download [Etcher](https://etcher.io/), then use the Etcher to write the  ```*.img.xz``` file directly to the SD card. Or extract the ```*.img.xz``` file into a ```*.img``` file, and then burn it to an SD card using another mirror write tool.
 
 ![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//etcher_burn_firmware.png)
 
@@ -221,7 +221,7 @@ the system will reboot repeatedly if our firmware does not have `power-manager.s
 - **Step 10.** Edit `/boot/uEnv.txt` then reboot to start eMMC boot.
 
 ```bash
-sudo sh -c "echo cmdline=init=/opt/scripts/tools/eMMC/init-eMMC-flasher-v3.sh >> \ /boot/uEnv.txt"
+sudo sh -c "echo cmdline=init=/opt/scripts/tools/eMMC/init-eMMC-flasher-v3.sh \ >> /boot/uEnv.txt"
 sudo reboot
 ```
 
@@ -229,7 +229,6 @@ it will take some time for updating firmware.please wait with patience.
 >You have to power off the board and unplug sd card when you terminal show this message.and the script will updating firmware repeatedly if we does not power off.
 
 ![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//emmc_flash_succ.png)
-
 
 - **Step 11.** Unplug `sd card` then power on.
 
@@ -265,7 +264,7 @@ if the terminal print like this indicates the network has been connecting to the
 
 ```bash
 cd ~
-git clone https://github.com/Hansen0314/aurora_test.git
+git clone --depth 1 https://github.com/Hansen0314/aurora_test.git
 ```
 
 - **Step 2.** Install the gpio to control the gpio of Aurora.
@@ -277,7 +276,7 @@ sudo cp ~/aurora_test/gpio /bin/
 - **Step 3.** Install the phytool to config the LAN of Aurora.
 
 ```bash
-git clone https://github.com/wkz/phytool
+git clone  https://github.com/wkz/phytool
 cd ~/phytool
 make
 sudo make install
@@ -297,8 +296,7 @@ you can disconnect GND to RST at stm8 for now.
 - **Step 5.** Install voice card to enable speaker and mic then reboot.
 
 ```bash
-sudo sh -c \
-"echo uboot_overlay_addr0=/lib/firmware/BB-BONE-AUDI-02-00A0.dtbo >> /boot/uEnv.txt"
+sudo sh -c "echo uboot_overlay_addr0=/lib/firmware/BB-BONE-AUDI-02-00A0.dtbo >> \ /boot/uEnv.txt"
 cd ~/aurora_test/voice_card
 sudo cp asound.state /var/lib/alsa/
 sudo cp asound.conf /etc/
@@ -328,38 +326,40 @@ gpio clear 11
 If you want to test input of aurora 100.
 
 ```bash
-cd  ~/aurora_test/input
-./input.sh 100
+gpio input 44 #if GND connect to CALL we will get 1
+gpio input 46 #if GND connect to SENSOR#1 we will get 1
+gpio input 75 #if GND connect to Small_hole we will get 1
 ```
 
 If you want to test input of aurora 200.
 
 ```bash
-cd  ~/aurora_test/input
-./input.sh 200
+gpio input 44 #if GND connect to CALL we will get 0
+gpio input 46 #if GND connect to SENSOR#1 we will get 0
+gpio input 75 #if GND connect to Small_hole we will get 1
+gpio input 65 #if GND connect to SENSOR#2 we will get 0
 ```
 
-Connect input pin to GND that will print the name of the pin at the terminal.
 and the pin's location you can view the [Extern-Interface-pinout](https://github.com/Hansen0314/aurora_test#extern-interface-pinout).
-this is  Trigger sequence:
-`CALL_IN -> SEN1_IN -> EXT_SEN -> SEN2_IN(aurora 200)`
 
-the EXT_SEN's location for Aurora100
+this is Small_hole's location for Aurora100
 
 ![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//ext_sen_for100.png)
 
-the EXT_SEN's location for Aurora200
+this is Small_hole's location for Aurora200
 
 ![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//ext_sen_for200.png)
 
 **LED state**
 
-we can use this cmd to blink the user-define LED.
+we can use this cmd to control the user-define LED.
 
 ```bash
-cd  ~/aurora_test/LED_state
-./LED_test.sh
+gpio set 23 #power on LED
+gpio clear 23 #power off LED
 ```
+
+and the LED's location you can view [hardware-overview](https://github.com/Hansen0314/aurora_test#hardware-overview).
 
 **Relay**
 
@@ -387,12 +387,24 @@ and the pin's location you can view [Extern-Interface-pinout](https://github.com
 
 **Voice card**
 
-the voice card needs some time to setup after power on. So we need to check voice card setup successful before run `./power_on_voice.sh`.we can use aplay -l to check whether set up successful. we can get this message if set up successful.
+the voice card needs some time to setup after power on. So we need to check voice card setup successful before run `./power_on_voice.sh`.we can use `aplay -l` to check whether set up successful. we can get this message if set up successful.
 
 ![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//aplay-l.png)
 
+> and you can get this information as soon as login by using `root` login.
 
 It is very important to check the connection of the Speaker and the Mic.and the pin's location you can view [Extern-Interface-pinout](https://github.com/Hansen0314/aurora_test#extern-interface-pinout).
+
+|Mic|Aurora|
+|:----:|:------:|
+|Yellow|GND|
+|Black|MIC-_M|
+|Red|MIC+_M|
+
+|Speaker|Aurora|
+|:----:|:------:|
+|Red|SPK+|
+|Black|SPK-|
 
 For Aurora100
 
@@ -401,6 +413,7 @@ For Aurora100
 For Aurora200
 
 ![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//Speaker-Mic_connectionfor200.png)
+
 
 if you use aurora 100 we can use this cmd to test it.
 
@@ -414,7 +427,7 @@ if you use aurora 200 we can use this cmd to test it.
 ```bash
 cd ~/aurora_test/voice_card
 ./power_on_voice.sh 1 #the one speaker
-#./power_on_voice.sh 2 #the other speaker
+./power_on_voice.sh 2 #the other speaker
 ```
 
 you can hear your speech form the Speaker if you speak to the mic.and you can adjust the knob to modify the sound volume for hardware side.the software also supports adjust the sound volume by using `alsamixer`.
@@ -430,23 +443,24 @@ The asound.conf and asound.state that you can found by accessing [github](https:
 **Update STM8 firmware**
 
 - **Step 1.** Download [stvp](https://drive.google.com/file/d/1hm5hKK_gqNOe6aBj4hlX1Di66oHQber4/view?usp=sharing) that is a download tool for stm8.
-- **Step 2.** Open the stvp and config it.
 
-Click `Project -> New`
+- **Step 2.** Install stm8 [driver](https://drive.google.com/file/d/1muwNTGqqdtcXkhjUn50fcBhIeQV_bj-O/view?usp=sharing).
 
-![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//stvp_New.png)
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//stlink_driver_install.png)
+
+
+- **Step 3.** Open the stvp and config it.
 
 Select `ST-Link ->SWIM->STM8S00F3`
 ![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//stvp_select_stm8.png)
 
-- **Step 3.** dowmload [firmware](https://github.com/Hansen0314/aurora_test/blob/master/power-service/STM8Firmware/power_manager.hex)
+- **Step 4.** dowmload [firmware](https://raw.githubusercontent.com/Hansen0314/aurora_test/master/power-service/STM8Firmware/power_manager.hex) to desktop and rename to `power_manager.hex`.
 
-
-- **Step 4.**  Connect STM8 to the computer by ST-link
+- **Step 5.**  Connect STM8 to the computer by ST-link
 
 ![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//SWIM_CONNECTION.png)
 
-- **Step 5.** Open the firmware then burn it to stm8
+- **Step 6.** Open the firmware then burn it to stm8
 
 ![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//stvp_Open.png)
 
@@ -454,7 +468,52 @@ burn the firmware
 
 ![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//burn_firmware.png)
 
-成功的现象
+if we burn successful we can get below picture.
+
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img/burn-successful.png)
 
 ## Appendix
 
+### DDR3 speed test
+
+- **Step 1.** install speed test tool
+
+```bash
+sudo apt update 
+sudo apt install -y mbw 
+```
+
+- **Step 2.** test speed
+
+```bash
+mbw -q 100
+```
+
+we can get this message
+
+```bash
+AVG     Method: MEMCPY  Elapsed: 0.70637        MiB: 100.00000  Copy: 141.568 MiB/s
+AVG     Method: DUMB    Elapsed: 0.54541        MiB: 100.00000  Copy: 183.347 MiB/s
+AVG     Method: MCBLOCK Elapsed: 0.29263        MiB: 100.00000  Copy: 341.723 MiB/s
+```
+
+### EMMC speed test
+
+- **Step 1.** clear caches
+
+```bash
+sudo sh -c "echo 3 > /proc/sys/vm/drop_caches"
+```
+
+- **Step 2.** test speed
+
+```bash
+time sudo dd if=/dev/mmcblk1 of=/dev/null bs=128k count=8192
+```
+we can get this message
+
+```bash
+8192+0 records in
+8192+0 records out
+1073741824 bytes (1.1 GB, 1.0 GiB) copied, 26.4425 s, 40.6 MB/s
+```
