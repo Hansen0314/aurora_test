@@ -498,15 +498,17 @@ we can get this message
 
 ### Power manager
 
-Power manager have two-part on the one hand is stm8 and on the other hand, is Aurora.we have to use this cmd to enable stm8's power manager at Aurora after power on the Aurora.
+Power manager have two-part on the one hand is stm8 and on the other hand, is AM335X.we have to use this cmd to enable stm8's power manager at AM335X after power on the Aurora.and the location of stm8 and AM335X we can view [hardware-overview](https://github.com/Hansen0314/aurora_test#hardware-overview).
 
 ```bash
 gpio set 45
 ```
 
->If the power manager power on at stm8, at the same time the Aurora's power manager has to enable. how to enable it we can view [Env install](https://github.com/Hansen0314/aurora_test#devices-usage)'s step4.
+and this is content of power manager.The stm8 will send a message to AM335X 1.5min / time. if AM335X cannot feedback to stm8, the stm8 will restart the AM335X.There exist a feedback code in our [GitHub](https://github.com/Hansen0314/aurora_test/blob/master/power-service/power_maneger.sh) for AM335X.
 
-We need to generate the falling edge level at Aurora if you want to power off the stm8's power manager.
+>If the power manager power on at stm8, at the same time the AM335X's power manager has to enable. how to enable it we can view [Env install](https://github.com/Hansen0314/aurora_test#devices-usage)'s step4.
+
+We need to generate the falling edge level at AM335X if you want to power off the stm8's power manager.
 
 ```bash
 gpio set 45
