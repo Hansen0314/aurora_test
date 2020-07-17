@@ -197,6 +197,9 @@ For Aurora 200
 ![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//UART_connection_200.png)
 
 - **Step 6.** Connect RST to GND at stm8 to stop stm8 power-manager code.
+
+>we can skip this step if use the newest firmware for stm8
+
 For Aurora 100
 
 ![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//GND_TO_RST100.png)
@@ -306,17 +309,17 @@ sudo reboot
 
 If the terminal prints no error go to next step.
 
-**12+V**
+**+12VS**
 
-we can use this cmd to make 12v power on.
+we can use this cmd to make +12VS power on.
 
 ```bash
 gpio set 11
 ```
 
-You can get 12v at J54(aurora 100)-pin4 or J21(aurora 200)-pin1 by using a multimeter.and the pin's location you can view the [Extern-Interface-pinout](https://github.com/Hansen0314/aurora_test#extern-interface-pinout).
+and the pin's location you can view the [Extern-Interface-pinout](https://github.com/Hansen0314/aurora_test#extern-interface-pinout).You can get 12v at +12VS by using a multimeter.
 
-we can use this cmd to make 12v power off.
+we can use this cmd to make +12VS power off.
 
 ```bash
 gpio clear 11
@@ -449,38 +452,6 @@ sudo alsamixer
 
 The asound.conf and asound.state that you can found by accessing [github](https://github.com/Hansen0314/aurora_test/tree/master/voice_card).
 
-**Update STM8 firmware**
-
-- **Step 1.** Download [stvp](https://drive.google.com/file/d/1hm5hKK_gqNOe6aBj4hlX1Di66oHQber4/view?usp=sharing) that is a download tool for stm8.
-
-- **Step 2.** Install stm8 [driver](https://drive.google.com/file/d/1muwNTGqqdtcXkhjUn50fcBhIeQV_bj-O/view?usp=sharing).
-
-![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//stlink_driver_install.png)
-
-
-- **Step 3.** Open the stvp and config it.
-
-Select `ST-Link ->SWIM->STM8S00F3`
-![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//stvp_select_stm8.png)
-
-- **Step 4.** dowmload [firmware](https://raw.githubusercontent.com/Hansen0314/aurora_test/master/power-service/STM8Firmware/power_manager.hex) to desktop and rename to `power_manager.hex`.
-
-- **Step 5.**  Connect STM8 to the computer by ST-link
-
-![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//SWIM_CONNECTION.png)
-
-- **Step 6.** Open the firmware then burn it to stm8
-
-![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//stvp_Open.png)
-
-burn the firmware
-
-![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//burn_firmware.png)
-
-if we burn successful we can get below picture.
-
-![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img/burn-successful.png)
-
 ## Appendix
 
 ### DDR3 speed test
@@ -526,3 +497,52 @@ we can get this message
 8192+0 records out
 1073741824 bytes (1.1 GB, 1.0 GiB) copied, 26.4425 s, 40.6 MB/s
 ```
+
+### Power manager
+
+Power manager have two-part on the one hard is stm8 and on the other hand, is am3358(main controller).we have to use this cmd to enable stm8's power manager after power on Aurora.
+
+```bash
+gpio set 45
+```
+
+>If the power manager power on at stm8, at the same time the am3358's power manager has to enable. how to enable it we can view [Env install](https://github.com/Hansen0314/aurora_test#devices-usage)'s step4.
+
+We need to generate the falling edge level if you want to power off the stm8's power manager.
+
+```bash
+gpio set 45
+gpio clear 45
+```
+
+### Update STM8 firmware
+
+- **Step 1.** Download [stvp](https://drive.google.com/file/d/1hm5hKK_gqNOe6aBj4hlX1Di66oHQber4/view?usp=sharing) that is a download tool for stm8.
+
+- **Step 2.** Install stm8 [driver](https://drive.google.com/file/d/1muwNTGqqdtcXkhjUn50fcBhIeQV_bj-O/view?usp=sharing).
+
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//stlink_driver_install.png)
+
+
+- **Step 3.** Open the stvp and config it.
+
+Select `ST-Link ->SWIM->STM8S00F3`
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//stvp_select_stm8.png)
+
+- **Step 4.** dowmload [firmware](https://raw.githubusercontent.com/Hansen0314/aurora_test/master/power-service/STM8Firmware/power_manager.hex) to desktop and rename to `power_manager.hex`.
+
+- **Step 5.**  Connect STM8 to the computer by ST-link
+
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//SWIM_CONNECTION.png)
+
+- **Step 6.** Open the firmware then burn it to stm8
+
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//stvp_Open.png)
+
+burn the firmware
+
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//burn_firmware.png)
+
+if we burn successful we can get below picture.
+
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img/burn-successful.png)
