@@ -306,9 +306,11 @@ you can disconnect GND to RST at stm8 for now.
 
 - **Step 4.** Install voice card to enable speaker and mic then reboot.and voice_card folder has below file:
 
-*1.asound.conf:* config ALSA. more information you can access [alsa](https://wiki.archlinux.org/index.php/Advanced_Linux_Sound_Architecture/Troubleshooting#Microphone).
+*1.asound.conf:* config ALSA.set the LEFT_LOP as output.and set LINE2R as input.
+more information you can access [alsa](https://wiki.archlinux.org/index.php/Advanced_Linux_Sound_Architecture/Troubleshooting#Microphone).
 
-*2.asound.state:* config voice card settings. more information you can access [alsa](https://wiki.archlinux.org/index.php/Advanced_Linux_Sound_Architecture/Troubleshooting#Microphone). 
+*2.asound.state:* config voice card settings.make `aplay` and `arecord` work with the mono mode at default.  
+more information you can access [alsa](https://wiki.archlinux.org/index.php/Advanced_Linux_Sound_Architecture/Troubleshooting#Microphone).
 
 *3.open_Amplifier.sh:* open Amplifier.
 
