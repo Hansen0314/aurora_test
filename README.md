@@ -286,7 +286,16 @@ sudo cp ~/aurora_test/gpio /bin/
 ```
 
 - **Step 3.** Install the power-service that communicate 
-with stm8 to enable `power-manager.service`.
+with stm8 to enable `power-manager.service`.and power-service folder has below file:
+
+*1.STM8Firmware/power_manager.hex:* firmware for stm8 and how to update the firmware to stm8 you can view [Update STM8 firmware](https://github.com/Hansen0314/aurora_test#update-stm8-firmware)
+
+*2.install. sh:* mpu-power-daemon.service install script. 
+
+*3.mpu-power-daemon.service:* service config file for AM3358.
+
+*4.power_manager.sh:* power manager script for AM3358.the more information you can access [power-manager](https://github.com/Hansen0314/aurora_test#power-manager).
+
 
 ```bash
 cd ~/aurora_test/power-service
@@ -295,7 +304,20 @@ sudo ./install.sh
 
 you can disconnect GND to RST at stm8 for now.
 
-- **Step 4.** Install voice card to enable speaker and mic then reboot.
+- **Step 4.** Install voice card to enable speaker and mic then reboot.and voice_card folder has below file:
+
+*1.asound.conf:* config ALSA. more information you can access [alsa](https://wiki.archlinux.org/index.php/Advanced_Linux_Sound_Architecture/Troubleshooting#Microphone).
+
+*2.asound.state:* config voice card settings. more information you can access [alsa](https://wiki.archlinux.org/index.php/Advanced_Linux_Sound_Architecture/Troubleshooting#Microphone). 
+
+*3.open_Amplifier.sh:* open Amplifier.
+
+```bash 
+./open_Amplifier.sh 1 # open spk1 
+./open_Amplifier.sh 2 # open spk2(Aurora200)
+```
+
+*4.power_on_voice.sh:* power on voice then record and play.more information you can access  [Voice card of devices-usage](https://github.com/Hansen0314/aurora_test#devices-usage)
 
 ```bash
 sudo sh -c "echo uboot_overlay_addr0=/lib/firmware/BB-BONE-AUDI-02-00A0.dtbo >> \ /boot/uEnv.txt"
@@ -498,17 +520,17 @@ we can get this message
 
 ### Power manager
 
-Power manager have two-part on the one hand is stm8 and on the other hand, is AM335X.we have to use this cmd to enable stm8's power manager at AM335X after power on the Aurora.and the location of stm8 and AM335X we can view [hardware-overview](https://github.com/Hansen0314/aurora_test#hardware-overview).
+Power manager have two-part on the one hand is stm8 and on the other hand, is AM3358.we have to use this cmd to enable stm8's power manager at AM3358 after power on the Aurora.and the location of stm8 and AM3358 we can view [hardware-overview](https://github.com/Hansen0314/aurora_test#hardware-overview).
 
 ```bash
 gpio set 45
 ```
 
-and this is content of power manager.The stm8 will send a message to AM335X 1.5min / time. if AM335X cannot feedback to stm8, the stm8 will restart the AM335X.There exist a feedback code in our [GitHub](https://github.com/Hansen0314/aurora_test/blob/master/power-service/power_maneger.sh) for AM335X.
+and this is content of power manager.The stm8 will send a message to AM3358 1.5min / time. if AM3358 cannot feedback to stm8, the stm8 will restart the AM3358.There exist a feedback code in our [GitHub](https://github.com/Hansen0314/aurora_test/blob/master/power-service/power_maneger.sh) for AM3358.
 
->If the power manager power on at stm8, at the same time the AM335X's power manager has to enable. how to enable it we can view [Env install](https://github.com/Hansen0314/aurora_test#devices-usage)'s step4.
+>If the power manager power on at stm8, at the same time the AM3358's power manager has to enable. how to enable it we can view [Env install](https://github.com/Hansen0314/aurora_test#devices-usage)'s step4.
 
-We need to generate the falling edge level at AM335X if you want to power off the stm8's power manager.
+We need to generate the falling edge level at AM3358 if you want to power off the stm8's power manager.
 
 ```bash
 gpio set 45

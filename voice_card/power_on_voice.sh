@@ -4,7 +4,7 @@ if [ "$#" -lt "1" ]; then
    echo "usage: bash $0 2"
    exit
 fi
-/bin/bash open_Opamper.sh $1
+/bin/bash open_Amplifier.sh $1
 while true
 do
     CARD_STARUS=`aplay -l | grep card | awk '{print $3}'`

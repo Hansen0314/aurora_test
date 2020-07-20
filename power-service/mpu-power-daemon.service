@@ -5,7 +5,7 @@ After=local-fs.target
 [Service]
 User=root
 Type=exec
-ExecStart=/bin/bash /usr/local/bin/power_maneger.sh
+ExecStart=/bin/bash /usr/local/bin/power_manager.sh
 
 [Install]
 WantedBy=multi-user.target
