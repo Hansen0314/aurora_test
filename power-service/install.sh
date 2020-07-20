@@ -5,7 +5,7 @@ if [[ $EUID -ne 0 ]]; then
 	exit 1
 fi
 
-install --mode 0755  power_maneger.sh /usr/local/bin/
+install --mode 0755  power_manager.sh /usr/local/bin/
 cp mpu-power-daemon.service /etc/systemd/system/
 systemctl unmask mpu-power-daemon.service
 systemctl enable mpu-power-daemon.service
