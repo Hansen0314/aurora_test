@@ -304,7 +304,20 @@ sudo ./install.sh
 
 you can disconnect GND to RST at stm8 for now.
 
-- **Step 4.** Install voice card to enable speaker and mic then reboot.and voice_card folder has below file:
+- **Step 4.** Disable cloud9 service when next power on.
+
+```bash 
+sudo systemctl disable cloud9.socket
+```
+
+if everything well we can be got as below information.
+
+```bash 
+debian@beaglebone:~$ sudo systemctl disable cloud9.socket
+Removed /etc/systemd/system/sockets.target.wants/cloud9.socket.
+```
+
+- **Step 5.** Install voice card to enable speaker and mic then reboot.and voice_card folder has below file:
 
 *1.asound.conf:* config ALSA.set the LEFT_LOP as output.and set LINE2R as input.
 more information you can access [alsa](https://wiki.archlinux.org/index.php/Advanced_Linux_Sound_Architecture/Troubleshooting#Microphone).
