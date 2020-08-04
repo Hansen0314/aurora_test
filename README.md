@@ -127,6 +127,8 @@ For Aurora 200
 
 - **22. Power button:** power on or power off the AM3358.
 
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//Hardware_back.png)
+
 ## Extern Interface pinout
 
 It is very useful when we test there pin.
@@ -138,6 +140,8 @@ For Aurora 100
 For Aurora 200
 
 ![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//200_Extern_Interface_pinout.png)
+
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//200_Extern_Interface_pinout-1.png)
 
 ## Introduction To Software
 
@@ -384,8 +388,6 @@ gpio input 46 #if GND connect to SEN1 we will get 0
 gpio input 87 #if the BUTTON be pressed we will get 0
 gpio input 65 #if GND connect to SEN2 we will get 0
 ```
-
-## BUTTON的位置
 
 the BUTTON's location we can view [hardware-view](https://github.com/Hansen0314/aurora_test#hardware-overview).
 
