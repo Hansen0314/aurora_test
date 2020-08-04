@@ -29,7 +29,7 @@ For Aurora 200
 |Knob|1 x Sound volume knob|
 |Operating temperature(C) | 0 ~ 90 (refer to [am3358](https://www.ti.com/product/AM3358))|
 
-## Hardware Overview 
+## Hardware Overview
 
 It is convenient to use this hardware overview for finding the location of the hardware.
 
@@ -78,6 +78,8 @@ For Aurora 100
 - **20. Power button:** power on or power off the AM3358.
 
 - **21. MAX9814ETD:** Amplifier for Mic.
+
+For Aurora 200
 
 ![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//aurora200.png)
 
@@ -230,7 +232,7 @@ sudo reboot
 ```
 
 it will take some time for updating firmware.please wait with patience.
->You have to power off the board and unplug sd card when you terminal show this message.and the script will updating firmware repeatedly if we does not power off.
+>You have to power off the board and unplug sd card when you terminal show this message.and the script will updating firmware repeatedly if we does not power off.Meanwhile,the four USER-LED will stop blinking if the update successful.
 
 ![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//emmc_flash_succ.png)
 
@@ -310,7 +312,7 @@ you can disconnect GND to RST at stm8 for now.
 sudo systemctl disable cloud9.socket
 ```
 
-if everything well we can be got as below information.
+if everything well we can get information as below .
 
 ```bash 
 debian@beaglebone:~$ sudo systemctl disable cloud9.socket
@@ -349,7 +351,7 @@ If the terminal prints no error go to next step.
 we can use this cmd to make +12VS power on.
 
 ```bash
-gpio set 11
+gpio set 22
 ```
 
 and the pin's location you can view the [Extern-Interface-pinout](https://github.com/Hansen0314/aurora_test#extern-interface-pinout).You can get 12v at +12VS by using a multimeter.
@@ -357,7 +359,7 @@ and the pin's location you can view the [Extern-Interface-pinout](https://github
 we can use this cmd to make +12VS power off.
 
 ```bash
-gpio clear 11
+gpio clear 22
 ```
 
 **Input**
@@ -366,8 +368,8 @@ If you want to test input of aurora 100.
 
 ```bash
 gpio input 44 #if GND connect to CALL we will get 1
-gpio input 46 #if GND connect to SENSOR#1 we will get 1
-gpio input 75 #if GND connect to Small_hole we will get 1
+gpio input 46 #if GND connect to SEN1 we will get 1
+gpio input 87 #if the BUTTON be pressed we will get 0
 ```
 
 if everything going well we will get this result.
@@ -378,24 +380,20 @@ If you want to test input of aurora 200.
 
 ```bash
 gpio input 44 #if GND connect to CALL we will get 0
-gpio input 46 #if GND connect to SENSOR#1 we will get 0
-gpio input 75 #if GND connect to Small_hole we will get 0
-gpio input 65 #if GND connect to SENSOR#2 we will get 0
+gpio input 46 #if GND connect to SEN1 we will get 0
+gpio input 87 #if the BUTTON be pressed we will get 0
+gpio input 65 #if GND connect to SEN2 we will get 0
 ```
+
+## BUTTON的位置
+
+the BUTTON's location we can view [hardware-view](https://github.com/Hansen0314/aurora_test#hardware-overview).
 
 if everything going well we will get this result.
 
 ![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img/aurora200_input.png)
 
 and the pin's location you can view the [Extern-Interface-pinout](https://github.com/Hansen0314/aurora_test#extern-interface-pinout).
-
-this is Small_hole's location for Aurora100
-
-![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//ext_sen_for100.png)
-
-this is Small_hole's location for Aurora200
-
-![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//ext_sen_for200.png)
 
 **LED state**
 
@@ -413,22 +411,24 @@ and the LED's location you can view [hardware-overview](https://github.com/Hanse
 If you want to test relay of aurora 100 You can use this cmd.
 
 ```bash
-gpio set 71 #make NO connect to GND
-gpio clear 71 #make NO disconnect to GND
-gpio set 47 #make NO-R connect to GND
-gpio clear 47 #make NO-R disconnect to GND
+gpio set 86 #make NO connect to GND
+gpio clear 86 #make NO disconnect to GND
+gpio set 47 #make NO-R connect to COM
+gpio clear 47 #make NO-R disconnect to COM
 ```
 
 If you want to test relay of aurora 200 You can use this cmd.
 
 ```bash
-gpio set 71 #make NO connect to GND
-gpio clear 71 #make NO disconnect to GND
-gpio set 47 #make NO-R connect to GND
-gpio clear 47 #make NO-R disconnect to GND
-gpio set 27 #make NO-C connect to GND
-gpio clear 27 #make NO-C disconnect to GND
+gpio set 86 #make NO connect to GND
+gpio clear 86 #make NO disconnect to GND
+gpio set 47 #make NO-R connect to COM
+gpio clear 47 #make NO-R disconnect to COM
+gpio set 27 #make NO-C connect to COM
+gpio clear 27 #make NO-C disconnect to COM
 ```
+
+maybe you need a multimeter to make sure the connection.
 
 and the pin's location you can view [Extern-Interface-pinout](https://github.com/Hansen0314/aurora_test#extern-interface-pinout).
 

@@ -1,16 +1,16 @@
 #!/bin/bash
-gpio clear 9  
-gpio clear 76 
+gpio clear 61
+gpio clear 89
 # 1 1
 if [ $1 = 1 ]
 then
-     gpio set 70
-     gpio clear 81
+     gpio set 88 
+     gpio clear 69 
 fi
 if [ $1 = 2 ]
 then
-    gpio set 81
-    gpio clear 70
+    gpio set 69 
+    gpio clear 88 
 fi
-gpio clear 8 #power on
-gpio set 78  #off mute
+gpio clear 60 #power on
+gpio set 68  #off mute
