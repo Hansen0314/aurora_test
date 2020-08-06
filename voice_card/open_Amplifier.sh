@@ -1,4 +1,9 @@
 #!/bin/bash
+if [ "$#" -lt "1" ]; then
+	   echo "usage: bash $0 1"
+	      echo "usage: bash $0 2"
+	         exit
+fi
 gpio clear 61
 gpio clear 89
 # 1 1

@@ -2,8 +2,8 @@ state.B {
 	control.1 {
 		iface MIXER
 		name 'PCM Playback Volume'
-		value.0 87
-		value.1 87
+		value.0 85
+		value.1 85
 		comment {
 			access 'read write'
 			type INTEGER
@@ -11,14 +11,14 @@ state.B {
 			range '0 - 127'
 			dbmin -6350
 			dbmax 0
-			dbvalue.0 -2000
-			dbvalue.1 -2000
+			dbvalue.0 -2100
+			dbvalue.1 -2100
 		}
 	}
 	control.2 {
 		iface MIXER
 		name 'Left Line Mixer PGAR Bypass Volume'
-		value 118
+		value 0
 		comment {
 			access 'read write'
 			type INTEGER
@@ -26,7 +26,7 @@ state.B {
 			range '0 - 118'
 			dbmin -9999999
 			dbmax 0
-			dbvalue.0 0
+			dbvalue.0 -9999999
 		}
 	}
 	control.3 {
@@ -46,7 +46,7 @@ state.B {
 	control.4 {
 		iface MIXER
 		name 'Right Line Mixer PGAL Bypass Volume'
-		value 118
+		value 0
 		comment {
 			access 'read write'
 			type INTEGER
@@ -54,7 +54,7 @@ state.B {
 			range '0 - 118'
 			dbmin -9999999
 			dbmax 0
-			dbvalue.0 0
+			dbvalue.0 -9999999
 		}
 	}
 	control.5 {
@@ -74,7 +74,7 @@ state.B {
 	control.6 {
 		iface MIXER
 		name 'Left HP Mixer PGAR Bypass Volume'
-		value 118
+		value 0
 		comment {
 			access 'read write'
 			type INTEGER
@@ -82,7 +82,7 @@ state.B {
 			range '0 - 118'
 			dbmin -9999999
 			dbmax 0
-			dbvalue.0 0
+			dbvalue.0 -9999999
 		}
 	}
 	control.7 {
@@ -102,7 +102,7 @@ state.B {
 	control.8 {
 		iface MIXER
 		name 'Right HP Mixer PGAL Bypass Volume'
-		value 118
+		value 0
 		comment {
 			access 'read write'
 			type INTEGER
@@ -110,7 +110,7 @@ state.B {
 			range '0 - 118'
 			dbmin -9999999
 			dbmax 0
-			dbvalue.0 0
+			dbvalue.0 -9999999
 		}
 	}
 	control.9 {
@@ -130,7 +130,7 @@ state.B {
 	control.10 {
 		iface MIXER
 		name 'Left HPCOM Mixer PGAR Bypass Volume'
-		value 118
+		value 0
 		comment {
 			access 'read write'
 			type INTEGER
@@ -138,7 +138,7 @@ state.B {
 			range '0 - 118'
 			dbmin -9999999
 			dbmax 0
-			dbvalue.0 0
+			dbvalue.0 -9999999
 		}
 	}
 	control.11 {
@@ -158,7 +158,7 @@ state.B {
 	control.12 {
 		iface MIXER
 		name 'Right HPCOM Mixer PGAL Bypass Volume'
-		value 118
+		value 0
 		comment {
 			access 'read write'
 			type INTEGER
@@ -166,7 +166,7 @@ state.B {
 			range '0 - 118'
 			dbmin -9999999
 			dbmax 0
-			dbvalue.0 0
+			dbvalue.0 -9999999
 		}
 	}
 	control.13 {
@@ -186,8 +186,8 @@ state.B {
 	control.14 {
 		iface MIXER
 		name 'Line PGA Bypass Volume'
-		value.0 71
-		value.1 71
+		value.0 1
+		value.1 1
 		comment {
 			access 'read write'
 			type INTEGER
@@ -195,8 +195,8 @@ state.B {
 			range '0 - 118'
 			dbmin -9999999
 			dbmax 0
-			dbvalue.0 -2350
-			dbvalue.1 -2350
+			dbvalue.0 -5850
+			dbvalue.1 -5850
 		}
 	}
 	control.15 {
@@ -218,8 +218,8 @@ state.B {
 	control.16 {
 		iface MIXER
 		name 'HP PGA Bypass Volume'
-		value.0 71
-		value.1 71
+		value.0 0
+		value.1 0
 		comment {
 			access 'read write'
 			type INTEGER
@@ -227,8 +227,8 @@ state.B {
 			range '0 - 118'
 			dbmin -9999999
 			dbmax 0
-			dbvalue.0 -2350
-			dbvalue.1 -2350
+			dbvalue.0 -9999999
+			dbvalue.1 -9999999
 		}
 	}
 	control.17 {
@@ -250,8 +250,8 @@ state.B {
 	control.18 {
 		iface MIXER
 		name 'HPCOM PGA Bypass Volume'
-		value.0 71
-		value.1 71
+		value.0 0
+		value.1 0
 		comment {
 			access 'read write'
 			type INTEGER
@@ -259,8 +259,8 @@ state.B {
 			range '0 - 118'
 			dbmin -9999999
 			dbmax 0
-			dbvalue.0 -2350
-			dbvalue.1 -2350
+			dbvalue.0 -9999999
+			dbvalue.1 -9999999
 		}
 	}
 	control.19 {
@@ -283,7 +283,7 @@ state.B {
 		iface MIXER
 		name 'Line Playback Switch'
 		value.0 true
-		value.1 true
+		value.1 false
 		comment {
 			access 'read write'
 			type BOOLEAN
@@ -293,8 +293,8 @@ state.B {
 	control.21 {
 		iface MIXER
 		name 'HP Playback Switch'
-		value.0 true
-		value.1 true
+		value.0 false
+		value.1 false
 		comment {
 			access 'read write'
 			type BOOLEAN
@@ -453,8 +453,8 @@ state.B {
 	control.33 {
 		iface MIXER
 		name 'PGA Capture Volume'
-		value.0 107
-		value.1 107
+		value.0 43
+		value.1 43
 		comment {
 			access 'read write'
 			type INTEGER
@@ -462,8 +462,8 @@ state.B {
 			range '0 - 119'
 			dbmin 0
 			dbmax 5950
-			dbvalue.0 5350
-			dbvalue.1 5350
+			dbvalue.0 2150
+			dbvalue.1 2150
 		}
 	}
 	control.34 {
