@@ -218,7 +218,7 @@ For Aurora 100
 
 For Aurora 200
 
-![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img/UART_connection_200.png)
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img/UART_connection_200-2.png)
 
 - **Step 6.** Connect RST to GND at stm8 to stop stm8 power-manager code.
 
@@ -455,7 +455,7 @@ and the pin's location you can view [Extern-Interface-pinout](#extern-interface-
 
 **Voice card**
 
-the voice card needs some time to setup after power on. So we need to check voice card setup successful before run `./power_on_voice.sh`.we can use `aplay -l` to check whether set up successful. we can get this message if set up successful.
+the voice card needs some time to setup after power on. So we need to check voice card setup successful before run `./open_Amplifier.sh`.we can use `aplay -l` to check whether set up successful. we can get this message if set up successful.
 
 ![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//aplay-l.png)
 
@@ -487,20 +487,31 @@ if you use aurora 100 we can use this cmd to test it.
 
 ```bash
 cd ~/aurora_test/voice_card
-./power_on_voice.sh 1
+sudo alsactl restore 0 -f asound.state
+./open_Amplifier.sh 1
+arecord -f dat -D hw:0 test.wav
+aplay test.wav
 ```
 
 if you use aurora 200 we can use this cmd to test it.
 
 ```bash
 cd ~/aurora_test/voice_card
-./power_on_voice.sh 1 #the one speaker
-./power_on_voice.sh 2 #the other speaker
+sudo alsactl restore 0 -f asound.state
+./open_Amplifier.sh 1 #the one speaker
+#./open_Amplifier.sh 2 #the other speaker
+arecord -f dat -D hw:0 test.wav
+aplay test.wav
 ``` 
+
+the codec detail as follow:
+|sample rate|channels|Sample formats|
+|:-------:|:-------:|:-------:|
+|8k<br>32k<br>44.1k<br>48k<br>50k<br>96k|2|S16_LE<br>S24_LE<br>S32_LE<br>S24_3LE<br>|
 
 you can hear your speech form the Speaker if you speak to the mic.and you can adjust the knob to modify the sound volume for hardware side.the software also supports adjust the sound volume by using `alsamixer`.
 
-```bash 
+```bash
 sudo alsamixer
 ```
 
@@ -519,7 +530,7 @@ sudo apt update
 sudo apt install -y mbw 
 ```
 > if update failed we can use as below cmd to install ''mbw" 
-<div STYLE="page-break-after: always;"></div>
+
 ```bash
 cd ~
 wget http://ftp.cn.debian.org/debian/pool/main/m/mbw/mbw_1.2.2-1+\
@@ -643,7 +654,6 @@ make: *** [Makefile:161: install_bb] Error 1
 
 ![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//stlink_driver_install.png)
 
-
 - **Step 3.** Open the stvp and config it.
 
 Select `ST-Link ->SWIM->STM8S00F3`
@@ -667,7 +677,7 @@ burn the firmware
 
 ![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//burn_firmware.png)
 
->if get some error when burning you can replug the st-link to the computer.
+>if get some error when burning you can replug the st-link to the computer or reboot the computer.
 
 if we burn successful we can get below picture.
 
