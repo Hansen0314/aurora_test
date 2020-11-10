@@ -1,0 +1,34 @@
+main.pbi: G:\seeed\aurora\IAR\stm8_power_manager\stm8s_it.h \
+  G:\seeed\aurora\IAR\stm8_power_manager\BSP\ADC\ADC.h \
+  G:\seeed\aurora\IAR\stm8_power_manager\BSP\TIME\BSP_TIME.h \
+  D:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.3\stm8\inc\c\ycheck.h \
+  D:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.3\stm8\inc\c\ysizet.h \
+  D:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.3\stm8\inc\c\DLib_Threads.h \
+  D:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.3\stm8\inc\c\yvals.h \
+  D:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.3\stm8\inc\c\xencoding_limits.h \
+  D:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.3\stm8\inc\c\DLib_Product.h \
+  D:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.3\stm8\inc\c\DLib_Defaults.h \
+  D:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.3\stm8\inc\c\string.h \
+  G:\seeed\aurora\IAR\stm8_power_manager\BSP\UART\UART.h \
+  G:\seeed\aurora\IAR\stm8_power_manager\BSP\GPIO\GPIO.h \
+  D:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.3\stm8\inc\c\intrinsics.h \
+  G:\seeed\aurora\IAR\stm8_power_manager\STM8S_StdPeriph_Driver\inc\stm8s.h \
+  G:\seeed\aurora\IAR\stm8_power_manager\STM8S_StdPeriph_Driver\inc\stm8s_wwdg.h \
+  G:\seeed\aurora\IAR\stm8_power_manager\STM8S_StdPeriph_Driver\inc\stm8s_uart1.h \
+  G:\seeed\aurora\IAR\stm8_power_manager\STM8S_StdPeriph_Driver\inc\stm8s_tim4.h \
+  G:\seeed\aurora\IAR\stm8_power_manager\STM8S_StdPeriph_Driver\inc\stm8s_tim2.h \
+  G:\seeed\aurora\IAR\stm8_power_manager\STM8S_StdPeriph_Driver\inc\stm8s_tim1.h \
+  G:\seeed\aurora\IAR\stm8_power_manager\STM8S_StdPeriph_Driver\inc\stm8s_spi.h \
+  G:\seeed\aurora\IAR\stm8_power_manager\STM8S_StdPeriph_Driver\inc\stm8s_rst.h \
+  G:\seeed\aurora\IAR\stm8_power_manager\STM8S_StdPeriph_Driver\inc\stm8s_iwdg.h \
+  G:\seeed\aurora\IAR\stm8_power_manager\STM8S_StdPeriph_Driver\inc\stm8s_itc.h \
+  G:\seeed\aurora\IAR\stm8_power_manager\STM8S_StdPeriph_Driver\inc\stm8s_i2c.h \
+  G:\seeed\aurora\IAR\stm8_power_manager\STM8S_StdPeriph_Driver\inc\stm8s_gpio.h \
+  G:\seeed\aurora\IAR\stm8_power_manager\STM8S_StdPeriph_Driver\inc\stm8s_flash.h \
+  G:\seeed\aurora\IAR\stm8_power_manager\STM8S_StdPeriph_Driver\inc\stm8s_exti.h \
+  G:\seeed\aurora\IAR\stm8_power_manager\STM8S_StdPeriph_Driver\inc\stm8s_clk.h \
+  G:\seeed\aurora\IAR\stm8_power_manager\STM8S_StdPeriph_Driver\inc\stm8s_beep.h \
+  G:\seeed\aurora\IAR\stm8_power_manager\STM8S_StdPeriph_Driver\inc\stm8s_awu.h \
+  G:\seeed\aurora\IAR\stm8_power_manager\STM8S_StdPeriph_Driver\inc\stm8s_adc1.h \
+  G:\seeed\aurora\IAR\stm8_power_manager\stm8s_conf.h \
+  G:\seeed\aurora\IAR\stm8_power_manager\main.c

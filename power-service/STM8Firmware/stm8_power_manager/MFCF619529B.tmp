@@ -1,0 +1,93 @@
+/* Includes ------------------------------------------------------------------*/
+#include "stm8s.h"
+#include "GPIO.h"
+#include "UART.h"
+#include "BSP_TIME.h"
+#include "ADC.h"
+enum {
+    PW_ST_STARTUP = 0,
+    PW_ST_SOFT_WDOG,
+    PW_ST_OFF,
+    PW_ST_ON,
+}PW_STATE;
+#define FEEDBACK_TIME_MS 1000
+#define POWER_DETECT_TIME_MS 1000
+#define NORMAL_VOlTAGE 450
+/* MPU Power state machine */
+Power_State_machine(PW_STATE Pw_state)
+{
+  u16 time_out = 0;
+  PW_STATE pw_state_next = pw_state;
+  switch(Pw_state)
+  {
+    case PW_ST_STARTUP:
+      GPIO_WriteHigh(Power_CTR_GPIO_PORT,(GPIO_Pin_TypeDef)Power_CTR_GPIO_PIN); //power on 
+      pw_state_next = PW_ST_SOFT_WDOG;
+      break;
+    case PW_ST_SOFT_WDOG:
+      GPIO_WriteHigh(Watchdog_OUT_PORT,(GPIO_Pin_TypeDef)Watchdog_OUT_GPIO_PIN); //feed to mcu
+      while(!GPIO_ReadInputPin(Watchdog_IN_PORT,Watchdog_IN_GPIO_PIN))
+      {
+        delay(1);
+        time_out++;
+        if (time_out > FEEDBACK_TIME_MS)
+        {
+          Pw_state_next = PW_ST_OFF;
+          break;
+        }
+      }
+      break;
+    case PW_ST_OFF: 
+      delay(2000);
+      GPIO_WriteHigh(Power_CTR_GPIO_PORT,(GPIO_Pin_TypeDef)Power_CTR_GPIO_PIN);  //Power off after 2s late
+      delay(10);
+      pw_state_next = PW_ST_STARTUP;
+      break;
+    case PW_ST_ON:
+      GPIO_WriteHigh(Power_CTR_GPIO_PORT,(GPIO_Pin_TypeDef)Power_CTR_GPIO_PIN); //power on 
+      while(ADC_Concersion(Power_DETEC_ADC_CHANNEL) < NORMAL_VOlTAGE){
+        delay(1);
+        time_out++
+          
+      }
+  }
+}
+
+
+u16 Power_DETEC_Voltage = 0;
+void main(void)
+{
+  /* Infinite loop */
+  CLK_Config();
+  Peripheral_UART_Init();
+  Peripheral_Time_Init();
+  Peripheral_GPIO_Init();
+  Peripheral_ADC_Init();
+
+  while (1)
+  {
+    Power_DETEC_Voltage = ADC_Concersion(Power_DETEC_ADC_CHANNEL); // 496 is normol vaule
+    UART_Send("123456789\r\n");
+  }
+}
+
+#ifdef USE_FULL_ASSERT
+
+/**
+  * @brief  Reports the name of the source file and the source line number
+  *   where the assert_param error has occurred.
+  * @param file: pointer to the source file name
+  * @param line: assert_param error line source number
+  * @retval : None
+  */
+void assert_failed(u8* file, u32 line)
+{ 
+  /* User can add his own implementation to report the file name and line number,
+     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+
+  /* Infinite loop */
+  while (1)
+  {
+  }
+}
+#endif

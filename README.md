@@ -16,7 +16,8 @@ For Aurora 100
 |Power|1 x DC interface (24V/2.5A)|
 |Button|1 x reset button<br>1 x power button<br>1 x boot button<br>1 x user-defined button|
 |Knob|1 x sound volume knob|
-|Operating temperature(C) | 0 ~ 90 (refer to [am3358](https://www.ti.com/product/AM3358))|
+
+<div STYLE="page-break-after: always;"></div>
 
 For Aurora 200
 
@@ -29,7 +30,7 @@ For Aurora 200
 |Power|1 x DC interface(24V/2.5A)|
 |Button|1 x reset button<br>1 x power button<br>1 x boot button<br>1 x user-defined button|
 |Knob|1 x Sound volume knob|
-|Operating temperature(C) | 0 ~ 90 (refer to [am3358](https://www.ti.com/product/AM3358))|
+
 
 ## Hardware Overview
 
@@ -216,6 +217,8 @@ For Aurora 100
 
 ![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img/UART_connection_100-1.png)
 
+<div STYLE="page-break-after: always;"></div>
+
 For Aurora 200
 
 ![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img/UART_connection_200-2.png)
@@ -223,6 +226,8 @@ For Aurora 200
 - **Step 6.** Connect RST to GND at stm8 to stop stm8 power-manager code.
 
 >we can skip this step if use the newest firmware for stm8
+
+<div STYLE="page-break-after: always;"></div>
 
 For Aurora 100
 
@@ -232,7 +237,7 @@ For Aurora 200
 
 ![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img/GND_TO_RST200.png)
 
-the system will reboot repeatedly if our firmware does not have `power-manager.service`.and there does not exist `power-manager.service` at default firmware. So we have to connect RST to GND at stm8 to stop `power-manager.service   `. we will install the `power-manager.service` at subsequent steps.
+the system will reboot repeatedly if our firmware does not have `mpu-power-manager.service`.and there does not exist `mpu-power-manager.service` in firmware downloaded from BeagleBoard Site. So we have to connect RST to GND at stm8 to stop the power management by STM8. we will install the `mpu-power-manager.service` at subsequent steps.
 
 - **Step 7.** Use [PUTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html), select `Serial` protocol, fill in the correct COM port of Aurora, 115200 baud, 8Bits, Parity None, Stop Bits 1, Flow Control None.
 
@@ -265,7 +270,7 @@ If you boot at emmc , the terminal will print `/dev/mmcblk1p1`.
 
 ![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//emmc_boot.png)
 
-- **Step 12.** Connect Internet cable to Ethernet interface if the Green LED to blink and the Yellow LED to light that indicates the network work well.we can get as below information about the eth0 at Aurora if we type `ifconfig` cmd.
+- **Step 12.** Connect Internet cable to Ethernet interface . if the Green LED blinking and Yello LED lighting indicate that the network works well.we can get as below information about the eth0 at Aurora if we type `ifconfig` cmd.
 
 ```bash
 ifconfig
@@ -278,7 +283,7 @@ the ip addr maybe different for this picture depending on your router.
 - **Step 13.** Internet test
 
 ```bash
-ping -c 5 www.china.com
+ping -c 5 china.com
 ```
 
 ![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//ping.png)
@@ -310,7 +315,7 @@ the aurora_test have below content.
 sudo cp ~/aurora_test/gpio /bin/
 ```
 
-- **Step 3.** Install the power-service that communicate with stm8 to enable `power-manager.service`.
+- **Step 3.** Install the power-service that communicate with stm8 to enable `mpu-power-manager.service`.
 
 ```bash
 cd ~/aurora_test/power-service
@@ -382,6 +387,24 @@ we can use this cmd to make +12VS power off.
 
 ```bash
 gpio clear 22
+```
+
+**E-12V**
+
+>Note: the E-12V only exist in Aurora200
+
+we can use this cmd to make E-12V power on.
+
+```bash
+gpio set 26
+```
+
+and the pin's location you can view the [Extern-Interface-pinout](#extern-interface-pinout).You can get 12v at E-12V by using a multimeter.
+
+we can use this cmd to make E-12V power off.
+
+```bash
+gpio clear 26
 ```
 
 **Input**
@@ -480,7 +503,7 @@ For Aurora100
 
 For Aurora200
 
-![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img/Speaker-Mic_connectionfor200.png)
+![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img/Speaker-Mic_connectionfor200-1.png)
 
 
 if you use aurora 100 we can use this cmd to test it.
@@ -507,7 +530,7 @@ aplay test.wav
 the codec detail as follow:
 |sample rate|channels|Sample formats|
 |:-------:|:-------:|:-------:|
-|8k<br>32k<br>44.1k<br>48k<br>50k<br>96k|2|S16_LE<br>S24_LE<br>S32_LE<br>S24_3LE<br>|
+|8k<br>32k<br>44.1k<br>48k<br>96k|2|S16_LE<br>S24_LE<br>S32_LE<br>S24_3LE<br>|
 
 you can hear your speech form the Speaker if you speak to the mic.and you can adjust the knob to modify the sound volume for hardware side.the software also supports adjust the sound volume by using `alsamixer`.
 
@@ -517,7 +540,15 @@ sudo alsamixer
 
 ![](https://raw.githubusercontent.com/Hansen0314/aurora_img/master/img//PCM.png)
 
-The asound.conf and asound.state that you can found by accessing [github](https://github.com/Hansen0314/aurora_test/tree/master/voice_card).
+The asound.conf and asound.state that you can found by accessing [github](https://github.com/Hansen0314/aurora_test/tree/master/voice_card).'
+
+this is MIC power on/off cmd .
+```bash
+amixer -c B cset numid=34,iface=MIXER,name='PGA Capture Switch' on 
+//Power on Mic
+amixer -c B cset numid=34,iface=MIXER,name='PGA Capture Switch' off 
+//Power off Mic
+```
 
 ## Appendix
 
@@ -575,17 +606,17 @@ we can get this message
 
 ### Power manager
 
-Power manager have two-part on the one hand is stm8 and on the other hand, is AM3358.we have to use this cmd to enable stm8's power manager at AM3358 after power on the Aurora.and the location of stm8 and AM3358 we can view [hardware-overview](#hardware-overview).
+Power manager have two-part on the one hand is stm8 and on the other hand, is AM3358.we have to use this cmd to enable stm8's power manager at AM3358 after is enabled the Aurora.and the location of stm8 and AM3358 we can view [hardware-overview](#hardware-overview).
 
 ```bash
 gpio set 45
 ```
 
-and this is content of power manager.The stm8 will send a message to AM3358 1.5min / time. if AM3358 cannot feedback to stm8, the stm8 will restart the AM3358.There exist a feedback code in our [GitHub](https://github.com/Hansen0314/aurora_test/blob/master/power-service/power_maneger.sh) for AM3358.
+and this is content of power manager.The stm8 will send a message to AM3358 1.5min / time. if AM3358 cannot feedback to stm8, the stm8 will restart the AM3358.There exist a feedback code in our [GitHub](https://github.com/Hansen0314/aurora_test/blob/master/power-service/power_manager.sh) for AM3358.
 
 >If the power manager power on at stm8, at the same time the AM3358's power manager has to enable. how to enable it we can view [Env install](#devices-usage)'s step4.
 
-We need to generate the falling edge level at AM3358 if you want to power off the stm8's power manager.
+We need to generate the falling edge level at AM3358 if you want to disable the stm8's power manager.
 
 ```bash
 gpio set 45
@@ -645,6 +676,8 @@ mkdir -p /lib/modules/4.19.94-ti-r42/extra/seeed || true
 cp: cannot stat '/home/debian/seeed-linux-dtoverlays/modules/e-ink/*.ko': No such file or directory
 make: *** [Makefile:161: install_bb] Error 1
 ```
+
+> note: this error as above is ignoreable for us when we make and install DTBO.
 
 ### Update STM8 firmware
 
